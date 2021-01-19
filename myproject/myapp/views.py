@@ -66,7 +66,6 @@ def blog_post(request):
     }
     return render(request, 'index.html', context)
 
-
 def home(request):
     return render(request, 'login.html')
 
