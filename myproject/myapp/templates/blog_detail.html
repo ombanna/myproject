@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="main-wrapper   main-post-block">
+<section class="cta-section theme-bg-light py-5">
+
+<div class="col-md-8 offset-md-2  blog-list-item">
+    <div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">{{ post.title }}</h5>
+    <h6 class="card-subtitle mb-2 text-muted">{{ post.created_on.date }}</h6>
+    <p class="card-text">{{ post.content | linebreaks }}</p>
+<!--    <a href="#" class="card-link">Card link</a>-->
+<!--    <a href="#" class="card-link">Another link</a>-->
+  </div>
+</div>
+
+{% comment %} like button functionality {% endcomment %}
+<form action="/blogpost_like/{{post.id}}" method="POST">
+    {% csrf_token %}
+
+    {% if data.post_is_liked %}
+    <button type="submit" name="blogpost_id" value="{{post.id}}" class="btn btn-primary">Unlike</button>
+    {% else %}
+    <button type="submit" name="blogpost_id" value="{{post.id}}" class="btn btn-primary">Like</button>
+    {% endif %}
+</form>
+<strong class="text-secondary">{{ data.number_of_likes }} Like{{ data.number_of_likes|pluralize }}</strong>
+{% comment %} end like button {% endcomment %}
+
+
+    <h3>Leave a comment:</h3>
+    <form action="/blog/{{ post.pk }}" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            {{ form.author }}
+        </div>
+        <div class="form-group">
+            {{ form.content }}
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    <h3>Comments:</h3>
+    {% for comment in comments %}
+    <p>
+        On {{comment.created_on.date }}&nbsp;
+        <b>{{ comment.author }}</b> wrote:
+    </p>
+    <p>{{ comment.content }}</p>
+    <hr>
+    {% endfor %}
+</div>
+</section>
+</div>
+{% endblock %}

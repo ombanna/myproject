@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+
+<div class="col-md-8 offset-md-2   blog-list-item">
+    {% for post in posts %}
+    <div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title"><a href="{% url 'blog_detail' post.pk %}">{{ post.title }}</a></h5>
+    <h6 class="card-subtitle mb-2 text-muted">{{ post.created_on.date }}</h6>
+    <p class="card-text">{{ post.content | slice:":400" }}</p>
+<!--    <a href="#" class="card-link">Card link</a>-->
+<!--    <a href="#" class="card-link">Another link</a>-->
+  </div>
+</div>
+
+    {% endfor %}
+    
+</div>
+
+{% endblock %}

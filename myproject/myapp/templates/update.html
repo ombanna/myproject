@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% if  isAdd is not True %}
+<div class="row">
+<div class="col-sm-8 offset-2">
+<h4 class="text-center alert alert-info"> Update Post</h4>
+<form action="" method="POST" class="d-inline">
+{% csrf_token %}
+{{form.as_p}}
+<input type="submit" class="btn btn-success" value="Edit">
+<a href="{% url 'blog_post' %}" class="btn btn-success">Back TO HOME</a>
+</form>
+</div>
+</div>
+{% endif%}
+
+
+{% if isAdd %}
+<div class="row">
+<div class="col-sm-8 offset-2" >
+<h4 class="text-center alert alert-info"> Add New Post</h4>
+<form action="" method="POST">
+{% csrf_token %}
+{{form.as_p}}
+<input type="submit" class="btn btn-success" value="ADD">
+<a href="{% url 'blog_post' %}" class="btn btn-success">Back TO HOME</a>
+</form>
+</div>
+</div>
+{% endif %}
+
+
+
+{% endblock content %}
+
